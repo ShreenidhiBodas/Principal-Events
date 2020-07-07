@@ -1,21 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import LoginScreen from './screens/LoginScreen';
+import MainStackScreen from './screens/MainStackScreen';
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const Drawer = createDrawerNavigator();
+
+let customFonts = {
+  'Roboto_medium': require('./assets/fonts/Roboto-Medium.ttf')
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default class App extends React.Component {
+  state = {
+    isLoggedIn: false,
+    fontsLoaded: false
+  }
+
+  async _loadFontsAsync() {
+    await Font.loadAsync(customFonts);
+    this.setState({ fontsLoaded: true });
+  }
+
+  componentDidMount() {
+    this._loadFontsAsync();
+  }
+
+  render() {
+    if (this.state.fontsLoaded) {
+      return (
+        <View style={{flex: 1, backgroundColor: '#FFF'}}>
+          <NavigationContainer>
+            <Drawer.Navigator>
+              <Drawer.Screen name="Home   " component={MainStackScreen}></Drawer.Screen>
+              <Drawer.Screen name="Login   " component={LoginScreen}></Drawer.Screen>
+            </Drawer.Navigator>
+          </NavigationContainer>
+        </View>
+      );
+    }
+    else {
+      return (
+        <AppLoading />
+      )
+    }
+  }
+}
