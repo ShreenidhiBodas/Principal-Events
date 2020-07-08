@@ -96,7 +96,7 @@ class Browse extends Component {
                     {/* <Image source={category.image} /> */}
                   </Badge>
                   <Text medium height={20}>
-                    {category.name}
+                    {category.name + "   "}
                   </Text>
                 </Card>
               </TouchableOpacity>

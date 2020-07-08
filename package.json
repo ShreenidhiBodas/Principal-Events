@@ -8,12 +8,17 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@aws-amplify/core": "^3.4.1",
     "@react-native-community/masked-view": "0.1.10",
+    "@react-native-community/netinfo": "^5.9.4",
     "@react-navigation/drawer": "^5.8.4",
     "@react-navigation/material-bottom-tabs": "^5.2.12",
     "@react-navigation/material-top-tabs": "^5.2.12",
     "@react-navigation/native": "^5.6.1",
     "@react-navigation/stack": "^5.6.2",
+    "amazon-cognito-identity-js": "^4.3.3",
+    "aws-amplify": "^3.0.19",
+    "aws-amplify-react-native": "^4.2.1",
     "expo": "~38.0.1",
     "expo-status-bar": "^1.0.0",
     "md5": "^2.2.1",

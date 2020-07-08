@@ -3,9 +3,11 @@ import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import LoginScreen from './screens/LoginScreen';
+import TempSignIn from './screens/TempSignIn';
 import MainStackScreen from './screens/MainStackScreen';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
+import flags from './global/flags'
 
 const Drawer = createDrawerNavigator();
 
@@ -15,7 +17,7 @@ let customFonts = {
 
 export default class App extends React.Component {
   state = {
-    isLoggedIn: false,
+    isLoggedIn: true,
     fontsLoaded: false
   }
 
@@ -34,10 +36,12 @@ export default class App extends React.Component {
         <View style={{flex: 1, backgroundColor: '#FFF'}}>
           <NavigationContainer>
             <Drawer.Navigator>
-              <Drawer.Screen name="Home   " component={MainStackScreen}></Drawer.Screen>
-              <Drawer.Screen name="Login   " component={LoginScreen}></Drawer.Screen>
+              {this.state.isLoggedIn && <Drawer.Screen name="Home   " component={MainStackScreen}></Drawer.Screen>}
+              <Drawer.Screen name="User Login   " component={LoginScreen}></Drawer.Screen>
+              <Drawer.Screen name="Admin Login   " component={LoginScreen}></Drawer.Screen>
             </Drawer.Navigator>
           </NavigationContainer>
+          {/* <TempSignIn /> */}
         </View>
       );
     }
