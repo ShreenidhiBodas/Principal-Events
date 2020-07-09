@@ -42,9 +42,9 @@ function MainStackScreen({ navigation }) {
                 headerLeft: () => (
                 <MaterialIcons name="menu" size={25} style={{marginLeft: 20, color: "#fff"}} onPress={() => navigation.openDrawer()} />
                 ),
-                // headerRight: () => (
-                //   <MaterialCommunityIcons name="logout" size={25} style={{marginRight: 20, color: "#fff"}} onPress={() => signOut(navigation)} />
-                // )
+                headerRight: () => (
+                  <MaterialCommunityIcons name="logout" size={25} style={{marginRight: 20, color: "#fff"}} onPress={() => signOut(navigation)} />
+                )
             }} />
             {/* <MainStack.Screen name="Event Information" component={EventInfoScreen} options={{
                 headerTitle: "EVENT INFORMATION",
@@ -95,14 +95,14 @@ function MainStackScreen({ navigation }) {
                 headerTitleAlign: "center",
                 headerTintColor: "#fff",
             }} />
-            <MainStack.Screen name="ChangePass" component={UpdatePasswordScreen} options={{
+            {/* <MainStack.Screen name="ChangePass" component={UpdatePasswordScreen} options={{
                 headerTitle: "Change Password",
                 headerStyle: {
                 backgroundColor: "#348feb",
                 },
                 headerTitleAlign: "center",
                 headerTintColor: "#fff",
-            }} />
+            }} /> */}
         </MainStack.Navigator>
     )
 }

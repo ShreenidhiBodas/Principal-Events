@@ -1,3 +1,7 @@
+import {Amplify,API,graphqlOperation} from "aws-amplify";
+import config from "../aws-exports";
+import { listEvents } from '../src/graphql/queries';
+
 const events = [
     { key: 1, title: "Event 1", details: "This is a dummy event", date: "20/07/2020", present: false, avatar: "https://robohash.org/quiquoquo.bmp?size=40x40&set=set1"},
     { key: 2, title: "Event 2", details: "This is a dummy event", date: "20/07/2020", present: true, avatar: "https://robohash.org/adipiscinonquas.bmp?size=40x40&set=set1"},
@@ -20,4 +24,14 @@ const events = [
     { key: 20, title: "Event 20", details: "This is a dummy event", date: "20/07/2020", present: false, avatar: "https://robohash.org/adipiscinonquas.bmp?size=40x40&set=set1"},
   ]
 
-export default events;
+Amplify.configure(config);
+
+let events_db;
+API.graphql(graphqlOperation(listEvents))
+.then(result => {
+  events_db = result.data.listEvents.items;
+})
+.catch(err => { console.log(err) });
+
+
+export { events, events_db };

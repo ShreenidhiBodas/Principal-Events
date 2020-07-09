@@ -53,7 +53,7 @@ const AirportScreen = ({ navigation, route }) => {
 }
 
 const AttireScreen = ({ navigation, route }) => {
-    let { key } = route.params;
+    let { key, title } = route.params;
     return (
         <Container>
             <Content>

@@ -17,10 +17,10 @@ import { Authenticator } from 'aws-amplify-react-native';
 import { View, StyleSheet } from 'react-native';
 import { Text, Header, Image } from 'react-native-elements';
 import { Container, Content, Form, Item, Input, Button } from 'native-base';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import flags from '../global/flags';
 
-class LoginScreen extends React.Component {
+class AdminLoginScreen extends React.Component {
   state = {
     email: '',
     password: ''
@@ -41,7 +41,7 @@ class LoginScreen extends React.Component {
         console.log({ user })
         if (user !== null) {
           flags.isUserloggedIn = true;
-          this.props.navigation.navigate("Home   ");
+          this.props.navigation.navigate("Create Event   ");
         }
       }, err => { console.log(err)})
       .catch(err => console.log(err))
@@ -53,12 +53,25 @@ class LoginScreen extends React.Component {
     )
   }
 
+  renderRightComponent = () => {
+    return (
+      <MaterialCommunityIcons name="logout" size={25} style={{marginRight: 10, color: "#fff"}} onPress={() => {
+        Auth.signOut({ global: true })
+        .then(() => {
+          this.props.navigation.navigate("Admin Login   ");
+        })
+        .catch(err => { console.log(err) });
+      }} />
+    )
+  }
+
   render() {
     return (
       <View style={{ flex:1 }}>
           <Header 
-                centerComponent = {{text: 'SIGN IN', style: { color: '#fff', fontSize: 20, fontWeight: 'bold' }}}
+                centerComponent = {{text: 'ADMIN LOGIN', style: { color: '#fff', fontSize: 20, fontWeight: 'bold' }}}
                 leftComponent = { this.renderLeftComponent() }
+                // rightComponent = { this.renderRightComponent()}
           />
           <Container>
             <Content>
@@ -72,12 +85,12 @@ class LoginScreen extends React.Component {
                 <Button block info style={{marginTop: 20, marginLeft:10, marginRight: 10,  }} onPress={() => { this.signIn() }} >
                   <Text style={{color: "#fff", fontSize: 20}}>LOGIN</Text>
                 </Button>
-                <Button block transparent light bordered style={{marginTop: 30, marginLeft:10, marginRight: 10, }} onPress={() => this.props.navigation.navigate("Signup")} >
+                {/* <Button block transparent light bordered style={{marginTop: 30, marginLeft:10, marginRight: 10, }} onPress={() => this.props.navigation.navigate("Signup")} >
                   <Text  style={{color: "black", fontSize: 20}}>SIGN UP</Text>
                 </Button>
-                {/* <Button block transparent light bordered style={{marginTop: 30, marginLeft:10, marginRight: 10, }} onPress={() => this.props.navigation.navigate("ChangePass")} >
-                  <Text  style={{color: "black", fontSize: 20}}>Change Password</Text>
-                </Button> */}
+                <Button block transparent light bordered style={{marginTop: 30, marginLeft:10, marginRight: 10, }} onPress={() => this.props.navigation.navigate("ChangePass")} >
+                  <Text  style={{color: "black", fontSize: 20}}>Change Password</Text> */}
+                {/* </Button> */}
               </Form>
             </Content>
           </Container>
@@ -93,4 +106,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default LoginScreen;
+export default AdminLoginScreen;
