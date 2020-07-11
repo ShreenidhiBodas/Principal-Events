@@ -8,6 +8,7 @@ import SignupScreen from './SignupScreen';
 import ConfirmSignupScreen from './ConfirmSignupScreen';
 import UpdatePasswordScreen from './UpdatePasswordScreen';
 import EventInfoScreen from './EventInfoScreen';
+import AddSession from './AddSession';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import LoginScreen from './LoginScreen';
 import TempSignIn from './TempSignIn';
@@ -65,7 +66,7 @@ function MainStackScreen({ navigation }) {
                   <MaterialIcons name="menu" size={25} style={{marginLeft: 20, color: "#fff"}} onPress={() => navigation.openDrawer()} />
                 )
             }} />
-            <MainStack.Screen name="LoginScreen" component={LoginScreen} options={{
+            {/* <MainStack.Screen name="LoginScreen" component={LoginScreen} options={{
                 headerTitle: "SIGN UP",
                 headerStyle: {
                 backgroundColor: "#348feb",
@@ -94,7 +95,7 @@ function MainStackScreen({ navigation }) {
                 },
                 headerTitleAlign: "center",
                 headerTintColor: "#fff",
-            }} />
+            }} /> */}
             {/* <MainStack.Screen name="ChangePass" component={UpdatePasswordScreen} options={{
                 headerTitle: "Change Password",
                 headerStyle: {
@@ -121,4 +122,4 @@ class MainTabScreen extends React.Component {
   }
 }
 
-export default MainStackScreen;
+export { MainStackScreen, MainTabScreen };

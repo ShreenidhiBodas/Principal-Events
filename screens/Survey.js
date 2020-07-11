@@ -34,7 +34,7 @@ class Survey extends Component {
         return (
             <Block>
                 <Fragment>
-                    <View style={{ height: 45 }} />
+                    <View style={{ height: 30 }} />
                     <Text h3>{val.q}</Text>
                 </Fragment>
             </Block>
@@ -55,7 +55,7 @@ class Survey extends Component {
         return (
             <Block>
                 <Fragment>
-                    <View style={{ height: 64 }} />
+                    <View style={{ height: 50 }} />
                     <Text h3>Feedback</Text>
                 </Fragment>
             </Block>
@@ -108,7 +108,8 @@ class Survey extends Component {
     render() {
 
         return (
-            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: theme.sizes.base * 2 }} >
+            <View style={{ flex: 1 }}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{ margin: 20 }} >
                     {this.renderTitle(0)}
                     {this.renderRating()}
                     {this.renderTitle(1)}
@@ -119,7 +120,9 @@ class Survey extends Component {
                     {this.renderInput()}
                     {this.renderButton()}
 
-            </ScrollView>
+                </ScrollView>
+            </View>
+            
         );
     }
 

@@ -17,12 +17,13 @@ import Icon from 'react-native-vector-icons/Feather';
 import { theme, mocks } from "../constants";
 import { Block } from "../components";
 import { MaterialIcons } from '@expo/vector-icons';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const { width, height } = Dimensions.get("window");
 
 class Attendee extends Component {
     state = {
-        speaker: {},
+        attendee: {},
         isVisible: false
     };
 
@@ -30,7 +31,7 @@ class Attendee extends Component {
         return (
           <MaterialIcons name="arrow-back" size={25} style={{marginLeft: 10, color: "#fff"}} onPress={() => this.props.navigation.goBack()} />
         )
-      }
+    }
 
     render() {
         const list = [
@@ -64,60 +65,68 @@ class Attendee extends Component {
                             alignItems: 'center'
                         }}
                 />
-                {
-                    list.map((l, i) => (
-                        <View>
-                            <TouchableOpacity
-                            >
-                                <ListItem
-                                    onPress={() => {
-                                        this.setState({ isVisible: true, speaker: l })
-                                    }}
-                                    key={i}
-                                    leftAvatar={{ source: { uri: l.avatar_url } }}
-                                    title={l.name}
-                                    subtitle={l.subtitle}
-                                    bottomDivider
-                                    titleStyle={{ color: '#0091DA', fontWeight: 'bold' }}
-                                    subtitleStyle={{ color: 'black' }}
-                                    chevron={{ color: '#0091DA' }}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                    ))
-
-                }
-
-                {
-                    <TouchableOpacity>
-
-                        <Overlay
-                            isVisible={this.state.isVisible}
-                            onBackdropPress={() => this.setState({ isVisible: false })}
-                        >
-
-                            <Card title={(this.state.speaker.name || '').toUpperCase()} image={{ uri: this.state.speaker.avatar_url }} imageStyle={styles.img}>
-                                <View>
-                                    <Text style={{ fontWeight: '700' }}>{this.state.speaker.subtitle}</Text>
-                                    <Text style={{ textAlign: 'justify' }}>{this.state.speaker.bio}</Text>
-                                    <Button
-                                        title='CLOSE'
-                                        buttonStyle={{
-                                            backgroundColor: theme.colors.blue,
-                                            marginTop: 10
+                <ScrollView>
+                    {
+                        list.map((l, i) => (
+                            <View>
+                                <TouchableOpacity
+                                >
+                                    <ListItem
+                                        onPress={() => {
+                                            this.setState({ isVisible: true, attendee: l })
                                         }}
-                                        onPress={() => this.setState({ isVisible: false })}
+                                        key={l.id}
+                                        leftAvatar={{ source: { uri: l.avatar_url } }}
+                                        title={l.name}
+                                        subtitle={l.subtitle}
+                                        bottomDivider
+                                        titleStyle={{ color: '#0091DA', fontWeight: 'bold' }}
+                                        subtitleStyle={{ color: 'black' }}
+                                        chevron={{ color: '#0091DA' }}
                                     />
+                                </TouchableOpacity>
+                            </View>
+                        ))
+                    }
+                    {
+                        <TouchableOpacity>
 
-                                </View>
-                            </Card>
+                            <Overlay
+                                isVisible={this.state.isVisible}
+                                onBackdropPress={() => this.setState({ isVisible: false })}
+                            >
 
-                        </Overlay>
+                                <Card title={(this.state.attendee.name || '').toUpperCase()} image={{ uri: this.state.attendee.avatar_url }} imageStyle={styles.img}>
+                                    <View>
+                                        <Text style={{ fontWeight: '700' }}>{this.state.attendee.subtitle}</Text>
+                                        <Text style={{ textAlign: 'justify' }}>{this.state.attendee.bio}</Text>
 
-                    </TouchableOpacity>
+                                        {/* <View style={{ alignItems: 'flex-start', flexDirection: 'row' }}>
+                                            <Icon.Button name="twitter" backgroundColor="transparent" color={theme.colors.blue}>
+                                                <Text>@{this.state.attendee.twitter}</Text>
+                                            </Icon.Button>
+                                            <Icon.Button name="github" backgroundColor="transparent" color={theme.colors.blue}>
+                                                <Text>@{this.state.attendee.github}</Text>
+                                            </Icon.Button>
+                                        </View> */}
+                                        <Button
+                                            title='CLOSE'
+                                            buttonStyle={{
+                                                backgroundColor: theme.colors.blue,
+                                                marginTop: 10
+                                            }}
+                                            onPress={() => this.setState({ isVisible: false })}
+                                        />
 
+                                    </View>
+                                </Card>
 
-                }
+                            </Overlay>
+
+                        </TouchableOpacity>
+                    }
+                </ScrollView>
+                
             </View>
 
         );

@@ -14,6 +14,8 @@ import Modal from 'react-native-modal';
 import { Block } from "../components";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Header } from 'react-native-elements';
+import moment from 'moment';
+
 class Schedule extends Component {
 
     constructor(props) {
@@ -32,9 +34,19 @@ class Schedule extends Component {
       }
 
     render() {
-        const DATA = mocks.events
-
-
+        // const DATA = mocks.events
+        const { event } = this.props.route.params;
+        const sessions = event.sessions.items;
+        const DATA = []
+        sessions.map((session, index) => {
+          const obj = {
+              title: session.title,
+              data: [
+                  session
+              ]
+          }
+          DATA.push(obj);
+        })
         return (
             <View style={{flex: 1}}>
                 <Header 
@@ -48,7 +60,7 @@ class Schedule extends Component {
                 <SafeAreaView style={styles.container}>
                     <SectionList
                         sections={DATA}
-                        renderItem={({ item, index, section }) => <ListItem containerStyle={{ borderLeftColor: item.color, borderLeftWidth: 6 }} key={index} title={item.name} subtitle={item.time + ' ' + item.place} onPress={() => this.setState({ event: item, modal: true })} />}
+                        renderItem={({ item, index, section }) => <ListItem containerStyle={{ borderLeftColor: "#3392F0", borderLeftWidth: 6 }} key={index} title={item.description} subtitle={moment(item.startDate).format('DD/MM/YYYY hh:mm A') + '-' + moment(item.endDate).format('DD/MM/YYYY hh:mm A')} onPress={() => this.setState({ event: item, modal: true })} />}
                         renderSectionHeader={({ section: { title } }) => <ListItem title={title}
                             containerStyle={{ backgroundColor: theme.colors.blue }}
                             titleStyle={{ color: theme.colors.white, fontWeight: '800' }}
@@ -63,9 +75,9 @@ class Schedule extends Component {
                         <Modal isVisible={this.state.modal}
                             onSwipe={() => this.setState({ modal: false })}
                             onBackdropPress={() => this.setState({ modal: false })}>
-                            <Card title={(this.state.event.name || '').toUpperCase()}>
+                            <Card title={(this.state.event.title || '').toUpperCase()}>
                                 <View>
-                                    <Text style={{ fontWeight: '700' }}>{this.state.event.time} {this.state.event.place}</Text>
+                                    <Text style={{ fontWeight: '700' }}>{moment(this.state.event.startDate).format('DD/MM/YYYY hh:mm A') + '-' + moment(this.state.event.endDate).format('DD/MM/YYYY hh:mm A')}</Text>
                                     <Text style={{ textAlign: 'justify', marginTop: 10 }}>{this.state.event.description}</Text>
                                     {
                                         this.state.event.speaker ?

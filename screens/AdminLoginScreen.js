@@ -40,7 +40,7 @@ class AdminLoginScreen extends React.Component {
       .then( user => {
         console.log({ user })
         if (user !== null) {
-          flags.isUserloggedIn = true;
+          this.setState({ email: '', password: '' })
           this.props.navigation.navigate("Create Event   ");
         }
       }, err => { console.log(err)})
@@ -68,19 +68,19 @@ class AdminLoginScreen extends React.Component {
   render() {
     return (
       <View style={{ flex:1 }}>
-          <Header 
+          {/* <Header 
                 centerComponent = {{text: 'ADMIN LOGIN', style: { color: '#fff', fontSize: 20, fontWeight: 'bold' }}}
                 leftComponent = { this.renderLeftComponent() }
                 // rightComponent = { this.renderRightComponent()}
-          />
+          /> */}
           <Container>
             <Content>
               <Form style={styles.form}>
                 <Item>
-                  <Input placeholder="Email" onChangeText={(value) => this.updateEmail(value)}/>
+                  <Input placeholder="Email" onChangeText={(value) => this.updateEmail(value)} value={this.state.email} />
                 </Item>
                 <Item>
-                  <Input placeholder="Password" secureTextEntry onChangeText={(value) => { this.updatePassword(value) }}/>
+                  <Input placeholder="Password" secureTextEntry onChangeText={(value) => { this.updatePassword(value) }} value={this.state.password} />
                 </Item>
                 <Button block info style={{marginTop: 20, marginLeft:10, marginRight: 10,  }} onPress={() => { this.signIn() }} >
                   <Text style={{color: "#fff", fontSize: 20}}>LOGIN</Text>

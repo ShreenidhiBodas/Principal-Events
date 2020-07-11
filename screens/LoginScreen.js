@@ -35,13 +35,12 @@ class LoginScreen extends React.Component {
   }
 
   signIn = () => {
-      console.log(this.state.email, this.state.password, typeof(this.state.email), typeof(this.state.password));
       Auth.signIn(this.state.email, this.state.password)
       .then( user => {
         console.log({ user })
         if (user !== null) {
-          flags.isUserloggedIn = true;
-          this.props.navigation.navigate("Home   ");
+          this.setState({ email: '', password: '' })
+          this.props.navigation.navigate("MAIN TAB");
         }
       }, err => { console.log(err)})
       .catch(err => console.log(err))
@@ -56,18 +55,18 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <View style={{ flex:1 }}>
-          <Header 
+          {/* <Header 
                 centerComponent = {{text: 'SIGN IN', style: { color: '#fff', fontSize: 20, fontWeight: 'bold' }}}
                 leftComponent = { this.renderLeftComponent() }
-          />
+          /> */}
           <Container>
             <Content>
               <Form style={styles.form}>
                 <Item>
-                  <Input placeholder="Email" onChangeText={(value) => this.updateEmail(value)}/>
+                  <Input placeholder="Email" onChangeText={(value) => this.updateEmail(value)} value={this.state.email} />
                 </Item>
                 <Item>
-                  <Input placeholder="Password" secureTextEntry onChangeText={(value) => { this.updatePassword(value) }}/>
+                  <Input placeholder="Password" secureTextEntry onChangeText={(value) => { this.updatePassword(value) }} value={this.state.password} />
                 </Item>
                 <Button block info style={{marginTop: 20, marginLeft:10, marginRight: 10,  }} onPress={() => { this.signIn() }} >
                   <Text style={{color: "#fff", fontSize: 20}}>LOGIN</Text>

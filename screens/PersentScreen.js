@@ -13,9 +13,9 @@ class PresentScreen extends React.Component {
     events_db: []
   }
 
-  pressed = (key, title) => {
+  pressed = (key, u) => {
     this.setState({ pressedEvent: key });
-    this.props.navigation.navigate("Event Menu", { key: key, title: title });
+    this.props.navigation.navigate("Event Menu", { key: key, event: u });
   }
 
   getAllEvents() {
@@ -51,7 +51,7 @@ class PresentScreen extends React.Component {
                           </Body>
                           <Right style={{justifyContent: 'center'}}>
                             <TouchableOpacity activeOpacity={0.7}>
-                              <Icon name="arrow-forward" style={{ paddingRight: 5, fontSize: 30 }} onPress={() => { this.pressed(u.id, u.title)}}/>
+                              <Icon name="arrow-forward" style={{ paddingRight: 5, fontSize: 30 }} onPress={() => { this.pressed(u.id, u)}}/>
                             </TouchableOpacity>
                           </Right>
                         </ListItem>

@@ -52,6 +52,9 @@ export const listEvents = /* GraphQL */ `
             startDate
             endDate
             title
+            description
+            speaker
+            type
           }
         }
         attendees {

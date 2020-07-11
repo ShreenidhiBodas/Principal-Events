@@ -5,7 +5,10 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import LoginScreen from './screens/LoginScreen';
 import AdminLoginScreen from './screens/AdminLoginScreen';
 import AddEvent from './screens/AddEvent';
-import MainStackScreen from './screens/MainStackScreen';
+import AddSession from './screens/AddSession';
+import { MainStackScreen } from './screens/MainStackScreen';
+import AdminStackScreen from './screens/AdminStackScreen';
+import UserStackScreen from './screens/UserStackScreen';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import flags from './global/flags';
@@ -38,10 +41,9 @@ export default class App extends React.Component {
         <View style={{flex: 1, backgroundColor: '#FFF'}}>
           <NavigationContainer>
             <Drawer.Navigator>
-              <Drawer.Screen name="User Login   " component={LoginScreen}></Drawer.Screen>
-              <Drawer.Screen name="Home   " component={MainStackScreen}></Drawer.Screen>
-              <Drawer.Screen name="Admin Login   " component={AdminLoginScreen}></Drawer.Screen>
-              <Drawer.Screen name="Create Event   " component={AddEvent}></Drawer.Screen>
+              <Drawer.Screen name="User Login   " component={UserStackScreen}></Drawer.Screen>
+              {/* <Drawer.Screen name="Home   " component={MainStackScreen}></Drawer.Screen> */}
+              <Drawer.Screen name="Admin Login" component={AdminStackScreen} />
             </Drawer.Navigator>
           </NavigationContainer>
         </View>
