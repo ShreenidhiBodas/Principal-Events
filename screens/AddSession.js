@@ -33,6 +33,7 @@ class AddSession extends Component {
     }
 
     render() {
+        const { email } = this.props.route.params;
         return (
             <View style={{ flex: 1 }}>
                 {/* <View>
@@ -145,7 +146,7 @@ class AddSession extends Component {
                     <Button
                         title = "Go Home"
                         onPress = {() => {
-                            this.props.navigation.navigate("MAIN TAB");
+                            this.props.navigation.navigate("MAIN TAB", { email: email });
                         }}
                         style = {{
                             marginTop: 30,

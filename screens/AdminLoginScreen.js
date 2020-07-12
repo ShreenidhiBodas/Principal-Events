@@ -41,7 +41,7 @@ class AdminLoginScreen extends React.Component {
         console.log({ user })
         if (user !== null) {
           this.setState({ email: '', password: '' })
-          this.props.navigation.navigate("Create Event   ");
+          this.props.navigation.navigate("Create Event   ", { email: user.attributes.email });
         }
       }, err => { console.log(err)})
       .catch(err => console.log(err))

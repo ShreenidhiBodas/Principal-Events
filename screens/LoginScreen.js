@@ -40,7 +40,7 @@ class LoginScreen extends React.Component {
         console.log({ user })
         if (user !== null) {
           this.setState({ email: '', password: '' })
-          this.props.navigation.navigate("MAIN TAB");
+          this.props.navigation.navigate("MAIN TAB", { email: user.attributes.email });
         }
       }, err => { console.log(err)})
       .catch(err => console.log(err))
@@ -63,7 +63,7 @@ class LoginScreen extends React.Component {
             <Content>
               <Form style={styles.form}>
                 <Item>
-                  <Input placeholder="Email" onChangeText={(value) => this.updateEmail(value)} value={this.state.email} />
+                  <Input placeholder="email" onChangeText={(value) => this.updateEmail(value)} value={this.state.email} />
                 </Item>
                 <Item>
                   <Input placeholder="Password" secureTextEntry onChangeText={(value) => { this.updatePassword(value) }} value={this.state.password} />

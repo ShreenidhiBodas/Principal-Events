@@ -109,16 +109,18 @@ function MainStackScreen({ navigation }) {
 }
 
 class MainTabScreen extends React.Component {
+   
   render() {
+    const { email } = this.props.route.params;
     return (
       <View style={{flex: 1}}>
         <HomeTab.Navigator>
-          <HomeTab.Screen name="Present & Upcoming" component={PresentScreen}/>
+          <HomeTab.Screen name="Present & Upcoming" component={PresentScreen} initialParams={{ email: email }}/>
           <HomeTab.Screen name="Past" component={PastScreen} />
       </HomeTab.Navigator>
       </View>
       
-    ); 
+    );
   }
 }
 

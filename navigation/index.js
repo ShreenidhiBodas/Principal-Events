@@ -53,12 +53,12 @@ const EventMenuStack = createStackNavigator();
 // );
 
 const EventMenuScreen = ({ navigation, route}) => {
-  let { key, event } = route.params;
+  let { key, event, email } = route.params;
   return (
     <EventMenuStack.Navigator>
       <EventMenuStack.Screen name="EventMenu" component={EventMenu} />
-      <EventMenuStack.Screen name="Schedule" component={Schedule} initialParams={{ event: event }} />
-      <EventMenuStack.Screen name="Attendee" component={Attendee}/>
+      <EventMenuStack.Screen name="Schedule" component={Schedule} initialParams={{ event: event, email: email }} />
+      <EventMenuStack.Screen name="Attendee" component={Attendee} initialParams={{ event: event}}/>
       <EventMenuStack.Screen name="Speaker" component={Speaker}/>
       <EventMenuStack.Screen name="EventInfo" component={EventInfoScreen} initialParams={{ key: key, event: event }}/>
       <EventMenuStack.Screen name="Survey" component={Survey}/>

@@ -55,17 +55,35 @@ export const listEvents = /* GraphQL */ `
             description
             speaker
             type
+            attendees {
+              items {
+                attendeeId
+                name
+                email
+              }
+            }
           }
-        }
-        attendees {
-          items {
-            attendeeId
-            name
-            email
-          }
-        }
+        } 
       }
       nextToken
     }
   }
 `;
+
+export const listDL1 = `query listDL1 {
+  listDL1 {
+    items {
+      email
+      name
+    }
+  }
+}`;
+
+export const listDL2 = `query listDL2 {
+  listDL2 {
+    items {
+      email
+      name
+    }
+  }
+}`;

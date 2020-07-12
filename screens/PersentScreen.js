@@ -14,8 +14,9 @@ class PresentScreen extends React.Component {
   }
 
   pressed = (key, u) => {
+    const { email } = this.props.route.params;
     this.setState({ pressedEvent: key });
-    this.props.navigation.navigate("Event Menu", { key: key, event: u });
+    this.props.navigation.navigate("Event Menu", { key: key, event: u, email: email });
   }
 
   getAllEvents() {

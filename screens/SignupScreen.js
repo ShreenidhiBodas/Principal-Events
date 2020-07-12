@@ -9,10 +9,11 @@ import Amplify, { Auth } from 'aws-amplify';
 //     )
 //   }
 // }
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { Text, Header, Image } from 'react-native-elements';
-import { Container, Content, Form, Item, Input, Button } from 'native-base';
+import { Container, Content, Form, Item, Input, Button, Picker } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 
 class SignupScreen extends React.Component {
@@ -20,15 +21,22 @@ class SignupScreen extends React.Component {
     login: false,
     password: '',
     email: '',
-    phone: ''
+    phone: '',
+    username: '',
+    domain: '@principal.com',
   }
 
   updatePassword = (value) => {
     this.setState({ password: value });
   }
 
-  updateEmail = (value) => {
-    this.setState({ email: value });
+  updateUsername = (value) => {
+    this.setState({ username: value });
+  }
+
+
+  updateDomain = (value) => {
+    this.setState({ domain: value });
   }
 
   updatePhone = (value) => {
@@ -37,7 +45,7 @@ class SignupScreen extends React.Component {
 
 
   signUp = async () => {
-    console.log(this.state.email, this.state.password, this.state.phone, " from SignupScreen");
+    this.setState({ email: (this.state.username + this.state.domain) })
       const { email, password, phone } = this.state;
       const username = email;
       const name = email;
@@ -67,13 +75,24 @@ class SignupScreen extends React.Component {
   }
 
   render() {
+    const { width } = Dimensions.get("window");
     return (
       <View style={{ flex:1 }}>
           <Container>
             <Content>
               <Form style={styles.form}>
                 <Item>
-                  <Input placeholder="Email" onChangeText={(value) => { this.updateEmail(value) }}/>
+                  <Input placeholder="User Name" onChangeText={(value) => { this.updateUsername(value) }}/>
+                  <Picker
+                  note
+                  mode="dropdown"
+                  style={{ width: width*0.02 }}
+                  selectedValue={this.state.domain}
+                  onValueChange={(value) => this.updateDomain(value)}
+                >
+                  <Picker.Item label="@principal.com" value="@principal.com" />
+                  <Picker.Item label="@walchandsangli.ac.in" value="@walchandsangli.ac.in" />
+              </Picker>
                 </Item>
                 <Item>
                   <Input placeholder="Password" secureTextEntry onChangeText={(value) => { this.updatePassword(value) }}/>
@@ -100,3 +119,15 @@ const styles = StyleSheet.create({
 })
 
 export default SignupScreen;
+
+              
+
+{/* <DropDownPicker
+items = { this.state.domains }
+containerStyle={{ height: 40, width: width*0.4 }}
+style={{backgroundColor: '#fafafa'}}
+dropDownStyle={{ backgroundColor: '#fafafa' }}
+onChangeItem={item => this.setState({
+    domain: item.value
+})}
+/> */}

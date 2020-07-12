@@ -34,29 +34,17 @@ class Attendee extends Component {
     }
 
     render() {
-        const list = [
-            {
-                id: '1',
-                name: 'Amy Farha',
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                bio: "Nisi eiusmod Lorem tempor nulla cillum ullamco. Tempor cupidatat ad duis incididunt ut nulla ea laborum labore occaecat laborum. Proident nostrud ea mollit esse veniam culpa do minim eiusmod. Deserunt pariatur proident excepteur dolor.\r\n",
-                twitter: "esse",
-                github: "occaecat",
-                subtitle: "Mobile Developer at Buzzopia",
-            },
-            {
-                id: '2',
-                name: 'Chris Jackson',
-                bio: "Cillum pariatur ex consectetur enim culpa laboris officia nisi. Nulla quis exercitation non amet incididunt nulla mollit pariatur reprehenderit exercitation irure. Non ea exercitation sit velit mollit est amet laboris veniam do. Ut officia ad labore adipisicing tempor Lorem nisi irure tempor mollit ut quis. Et occaecat consectetur ipsum consequat. Aliquip reprehenderit ea minim incididunt anim irure anim nisi nisi laboris anim. Eu commodo minim ad voluptate cillum deserunt ipsum tempor mollit velit reprehenderit exercitation.\r\n",
-                twitter: "proident",
-                github: "amet",
-                subtitle: "Freelance at Eschoir",
-                avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+        let attendees = [];
+        const { event } = this.props.route.params;
+        event.sessions.items.map(session => {
+            session.attendees.items.map(attendee => {
+                attendees.push(attendee.email);
+            })
+        })
+        let unique = attendees.filter((v, i, a) => a.indexOf(v) === i)
 
-            }
-        ];
         return (
-            <View>
+            <View style={{flex:1}}>
                 <Header 
                         centerComponent = {{text: 'Attendees', style: { color: '#fff', fontSize: 22, fontWeight: '500' }}}
                         leftComponent = { this.renderLeftComponent() }
@@ -67,63 +55,20 @@ class Attendee extends Component {
                 />
                 <ScrollView>
                     {
-                        list.map((l, i) => (
+                        unique.map((l, i) => (
                             <View>
-                                <TouchableOpacity
-                                >
-                                    <ListItem
-                                        onPress={() => {
-                                            this.setState({ isVisible: true, attendee: l })
-                                        }}
-                                        key={l.id}
-                                        leftAvatar={{ source: { uri: l.avatar_url } }}
-                                        title={l.name}
-                                        subtitle={l.subtitle}
-                                        bottomDivider
-                                        titleStyle={{ color: '#0091DA', fontWeight: 'bold' }}
-                                        subtitleStyle={{ color: 'black' }}
-                                        chevron={{ color: '#0091DA' }}
-                                    />
-                                </TouchableOpacity>
+                                <ListItem
+                                    key={i}
+                                    leftAvatar={{ source: { uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' } }}
+                                    title={l}
+                                    // subtitle={l.subtitle}
+                                    bottomDivider
+                                    titleStyle={{ color: '#0091DA', fontWeight: 'bold' }}
+                                    subtitleStyle={{ color: 'black' }}
+                                    // chevron={{ color: '#0091DA' }}
+                                />
                             </View>
                         ))
-                    }
-                    {
-                        <TouchableOpacity>
-
-                            <Overlay
-                                isVisible={this.state.isVisible}
-                                onBackdropPress={() => this.setState({ isVisible: false })}
-                            >
-
-                                <Card title={(this.state.attendee.name || '').toUpperCase()} image={{ uri: this.state.attendee.avatar_url }} imageStyle={styles.img}>
-                                    <View>
-                                        <Text style={{ fontWeight: '700' }}>{this.state.attendee.subtitle}</Text>
-                                        <Text style={{ textAlign: 'justify' }}>{this.state.attendee.bio}</Text>
-
-                                        {/* <View style={{ alignItems: 'flex-start', flexDirection: 'row' }}>
-                                            <Icon.Button name="twitter" backgroundColor="transparent" color={theme.colors.blue}>
-                                                <Text>@{this.state.attendee.twitter}</Text>
-                                            </Icon.Button>
-                                            <Icon.Button name="github" backgroundColor="transparent" color={theme.colors.blue}>
-                                                <Text>@{this.state.attendee.github}</Text>
-                                            </Icon.Button>
-                                        </View> */}
-                                        <Button
-                                            title='CLOSE'
-                                            buttonStyle={{
-                                                backgroundColor: theme.colors.blue,
-                                                marginTop: 10
-                                            }}
-                                            onPress={() => this.setState({ isVisible: false })}
-                                        />
-
-                                    </View>
-                                </Card>
-
-                            </Overlay>
-
-                        </TouchableOpacity>
                     }
                 </ScrollView>
                 

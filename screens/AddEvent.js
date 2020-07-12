@@ -46,6 +46,7 @@ class AddEvent extends Component {
     }
 
     render() {
+        const { email } = this.props.route.params;
         return (
             <View style={{ flex: 1 }}>
                 {/* <View>
@@ -157,7 +158,7 @@ class AddEvent extends Component {
                             .then(result => {
                                 if (result !== null) {
                                     console.log(result);
-                                    this.props.navigation.navigate("Session", { eventId: result.data.createEvent.id });
+                                    this.props.navigation.navigate("Session", { eventId: result.data.createEvent.id, email: email });
                                 }
                             })
                             .catch(err => { alert(err.message) })

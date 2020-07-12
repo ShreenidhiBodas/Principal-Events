@@ -15,6 +15,9 @@ import { Block } from "../components";
 import { MaterialIcons } from '@expo/vector-icons';
 import { Header } from 'react-native-elements';
 import moment from 'moment';
+import {API,graphqlOperation} from "aws-amplify";
+import { listDL1, listDL2 } from '../src/graphql/queries';
+import { createAttendee } from '../src/graphql/mutations';
 
 class Schedule extends Component {
 
@@ -27,6 +30,61 @@ class Schedule extends Component {
         };
     }
 
+    joinSession = (type, email, id) => {
+        let dl = [];
+        if (type === "DL1") {
+            API.graphql(graphqlOperation(listDL1))
+            .then(res => {
+                console.log(res);
+                dl = res.data.listDL1.items;
+                const obj = dl.filter(item =>  item.email === email )
+                if (obj.length === 1) {
+                    const attendee = {
+                        sessionId: id, 
+                        email: email
+                    }
+                    API.graphql(graphqlOperation(createAttendee, { input: attendee }))
+                    .then(a => {
+                        if (a !== null) {
+                            console.log(a);
+                            alert("You are successfully registered for this event")
+                        }
+                    })
+                    .catch(err => console.log(err));
+                }
+                else {
+                    alert("You are not in the DL for this event");
+                }
+            })
+            .catch(err => console.log(err));
+        }
+        else {
+            API.graphql(graphqlOperation(listDL2))
+            .then(res => {
+                dl = res.data.listDL2.items;
+                const obj = dl.filter(item => { return item.email === email })
+                if (obj.length === 1) {
+                    const attendee = {
+                        sessionId: id, 
+                        email: email
+                    }
+                    API.graphql(graphqlOperation(createAttendee, { input: attendee }))
+                    .then(a => {
+                        if (a !== null) {
+                            console.log(a);
+                            alert("You are successfully regiatered for this event")
+                        }
+                    })
+                    .catch(err => console.log(err));
+                }
+                else {
+                    alert("You are not in the DL for this event");
+                }
+            })
+            .catch(err => console.log(err));
+        }
+    }
+
     renderLeftComponent = () => {
         return (
           <MaterialIcons name="arrow-back" size={25} style={{marginLeft: 10, color: "#fff"}} onPress={() => this.props.navigation.goBack()} />
@@ -35,12 +93,14 @@ class Schedule extends Component {
 
     render() {
         // const DATA = mocks.events
-        const { event } = this.props.route.params;
+        const { event, email } = this.props.route.params;
         const sessions = event.sessions.items;
         const DATA = []
         sessions.map((session, index) => {
           const obj = {
               title: session.title,
+              type: session.type,
+              id: session.sessionId,
               data: [
                   session
               ]
@@ -61,11 +121,15 @@ class Schedule extends Component {
                     <SectionList
                         sections={DATA}
                         renderItem={({ item, index, section }) => <ListItem containerStyle={{ borderLeftColor: "#3392F0", borderLeftWidth: 6 }} key={index} title={item.description} subtitle={moment(item.startDate).format('DD/MM/YYYY hh:mm A') + '-' + moment(item.endDate).format('DD/MM/YYYY hh:mm A')} onPress={() => this.setState({ event: item, modal: true })} />}
-                        renderSectionHeader={({ section: { title } }) => <ListItem title={title}
+                        renderSectionHeader={({ section: { title, type, id } }) => <ListItem title={title}
                             containerStyle={{ backgroundColor: theme.colors.blue }}
                             titleStyle={{ color: theme.colors.white, fontWeight: '800' }}
                             chevronColor={theme.colors.gray}
                             stickySectionHeadersEnabled={true}
+                            rightIcon={<Button 
+                                title="JOIN"
+                                onPress={() => this.joinSession(type, email, id)}
+                            />}
                         />}
                         // sections={this.state.events || []}
                         keyExtractor={(item, index) => item + index} />

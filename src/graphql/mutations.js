@@ -56,8 +56,7 @@ export const createNewSession = /* GraphQL */ `
 export const createAttendee = /* GraphQL */ `
   mutation CreateAttendee($input: CreateAttendeeInput!) {
     createAttendee(input: $input) {
-      eventId
-      name
+      sessionId
       email
       attendeeId
     }
