@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, View, ScrollView } from "react-native";
 import { Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Header } from 'react-native-elements';
+import { ListItem, Body } from 'native-base';
 import { MaterialIcons } from '@expo/vector-icons';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
@@ -77,10 +78,14 @@ class AddSession extends Component {
                 </View> */}
                 <ScrollView style={{ margin: 20 }}>
                     {this.state.sessions.map(e => (
-                        <Text key={e.id}>
-                            {e.title} {e.description}
-                            {moment(e.startDate).format('DD/MM/YYYY hh:mm A')} {moment(e.endDate).format('DD/MM/YYYY hh:mm A')}
-                        </Text>
+                        <ListItem>
+                            <Body>
+                                <Text key={e.id}>
+                                    {e.title} {e.description}
+                                    {moment(e.startDate).format('DD/MM/YYYY hh:mm A')} {moment(e.endDate).format('DD/MM/YYYY hh:mm A')}
+                                </Text>
+                            </Body>
+                        </ListItem>
                     ))}
                     <Text style={styles.header}>Add New Session</Text>
                     <TextInput
