@@ -50,6 +50,7 @@ export const createNewSession = /* GraphQL */ `
       type
       description
       speaker
+      url
     }
   }
 `;

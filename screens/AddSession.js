@@ -7,7 +7,16 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
 import {API, graphqlOperation} from "aws-amplify";
 import { createNewSession } from '../src/graphql/mutations';
+import DocumentPicker from 'react-native-document-picker';
+import { RNS3 } from 'react-native-s3-upload';
 
+// var AWS = require('aws-sdk');
+// var s3 = new AWS.S3({accessKeyId:'AKIAR5KIOWOZMM6I2IQH', secretAccessKey:'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', region:'us-east-1'});
+ 
+// var params = {Bucket: 'principal-app', Key: 'sessionDocs/doc-1.pdf', ContentType: 'application/pdf'};
+// s3.getSignedUrl('putObject', params, function (err, url) {
+//     console.log('Your generated pre-signed URL is', url);
+// });
 
 class AddSession extends Component {
     constructor(props) {
@@ -22,7 +31,9 @@ class AddSession extends Component {
             endDate: "",
             eventId: "",
             type: "",
-            speaker: ""
+            speaker: "",
+            s3URL: '',
+            file: ''
         }
     }
 
@@ -31,6 +42,28 @@ class AddSession extends Component {
           <MaterialIcons name="arrow-back" size={25} style={{marginLeft: 10, color: "#fff"}} onPress={() => this.props.navigation.goBack()} />
         )
     }
+
+    // async selectOneFile() {
+    //     try {
+    //       const res = await DocumentPicker.pick({
+    //         type: [DocumentPicker.types.allFiles],
+    //       });
+    //       console.log('res : ' + JSON.stringify(res));
+    //       console.log('URI : ' + res.uri);
+    //       console.log('Type : ' + res.type);
+    //       console.log('File Name : ' + res.name);
+    //       console.log('File Size : ' + res.size);
+    //       this.setState({ file: res });
+    //     } catch (err) {
+    //       if (DocumentPicker.isCancel(err)) {
+    //         alert('Canceled from single doc picker');
+    //       } else {
+    //         //For Unknown Error
+    //         alert('Unknown Error: ' + JSON.stringify(err));
+    //         throw err;
+    //       }
+    //     }
+    //   }
 
     render() {
         const { email } = this.props.route.params;
@@ -111,7 +144,16 @@ class AddSession extends Component {
                         onConfirm={(date) => { this.setState({ isendDatePickerVisible: false }); this.setState({ endDate: date }) }}
                         onCancel={() => { this.setState({ isendDatePickerVisible: false }) }}
                     />
-
+                    {/* <TouchableOpacity
+                        activeOpacity={0.5}
+                        style={styles.buttonStyle}
+                        onPress={this.selectOneFile.bind(this)}>
+                        {/*Single file selection button*/}
+                        {/* <Text style={{ marginRight: 10, fontSize: 19 }}>
+                            Click here to pick one file
+                        </Text>
+                    </TouchableOpacity> */}
+                    
                     <Button
                         title="Add Session"
                         onPress={() => { 

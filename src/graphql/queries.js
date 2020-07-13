@@ -55,6 +55,7 @@ export const listEvents = /* GraphQL */ `
             description
             speaker
             type
+            url
             attendees {
               items {
                 attendeeId

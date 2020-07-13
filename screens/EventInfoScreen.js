@@ -45,8 +45,8 @@ const AirportScreen = ({ navigation, route }) => {
         <Container>
             <Content>
                 <H2>Event: {e.title}</H2>
-                <Text style={styles.displayText}>Ground transportation is not provided. Upon arrival in San Diego, please plan to take a cab. </Text>
-                <Text style={styles.displayText}>Please Coordinate with others on the flight</Text>
+                <Text style={styles.displayText}>{e.airTransport}</Text>
+                
             </Content>
         </Container>
     );
@@ -58,7 +58,7 @@ const AttireScreen = ({ navigation, route }) => {
         <Container>
             <Content>
                 <H2>Event: {e.title}</H2>
-                <Text style={styles.displayText}>Something related to attire</Text>
+                <Text style={styles.displayText}>{e.attire}</Text>
             </Content>
         </Container>
     )
@@ -70,7 +70,7 @@ const FlightAssistanceScreen = ({ navigation, route }) => {
         <Container>
             <Content>
                 <H2>Event: {e.title}</H2>
-                <Text style={styles.displayText}>Something related to flight assistance</Text>
+                <Text style={styles.displayText}>{e.flightAssist}</Text>
             </Content>
         </Container>
     )
@@ -82,7 +82,7 @@ const HotelAccomodationScreen = ({ navigation, route }) => {
         <Container>
             <Content>
                 <H2>Event: {e.title}</H2>
-                <Text style={styles.displayText}>Something related to Hotel Accomodation</Text>
+                <Text style={styles.displayText}>{e.accomodation}</Text>
             </Content>
         </Container>
     )
