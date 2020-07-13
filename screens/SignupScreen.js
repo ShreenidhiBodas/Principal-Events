@@ -22,22 +22,22 @@ class SignupScreen extends React.Component {
     password: '',
     email: '',
     phone: '',
-    username: '',
-    domain: '@principal.com',
+    // user: '',
+    // domain: '@principal.com',
   }
 
   updatePassword = (value) => {
     this.setState({ password: value });
   }
 
-  updateUsername = (value) => {
-    this.setState({ username: value });
+  updateEmail = (value) => {
+    this.setState({ email: value });
   }
 
 
-  updateDomain = (value) => {
-    this.setState({ domain: value });
-  }
+  // updateDomain = (value) => {
+  //   this.setState({ domain: value });
+  // }
 
   updatePhone = (value) => {
     this.setState({ phone: value });
@@ -45,10 +45,8 @@ class SignupScreen extends React.Component {
 
 
   signUp = async () => {
-    this.setState({ email: (this.state.username + this.state.domain) })
       const { email, password, phone } = this.state;
       const username = email;
-      const name = email;
       try {
         const user = await Auth.signUp({
             username,
@@ -82,8 +80,8 @@ class SignupScreen extends React.Component {
             <Content>
               <Form style={styles.form}>
                 <Item>
-                  <Input placeholder="User Name" onChangeText={(value) => { this.updateUsername(value) }}/>
-                  <Picker
+                  <Input placeholder="Email" onChangeText={(value) => { this.updateEmail(value) }}/>
+                  {/* <Picker
                   note
                   mode="dropdown"
                   style={{ width: width*0.02 }}
@@ -92,7 +90,7 @@ class SignupScreen extends React.Component {
                 >
                   <Picker.Item label="@principal.com" value="@principal.com" />
                   <Picker.Item label="@walchandsangli.ac.in" value="@walchandsangli.ac.in" />
-              </Picker>
+              </Picker> */}
                 </Item>
                 <Item>
                   <Input placeholder="Password" secureTextEntry onChangeText={(value) => { this.updatePassword(value) }}/>
