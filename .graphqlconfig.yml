@@ -1,5 +1,5 @@
 projects:
-  Principal Event App:
+  Event App Principal:
     schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.js
@@ -11,8 +11,5 @@ projects:
         generatedFileName: ''
         docsFilePath: src/graphql
         region: us-east-1
-        apiId: ybbe524ajzgg7bfj3kjojdgshy
+        apiId: hzlusegdv5b43cncaofnpz4knq
         maxDepth: 2
-extensions:
-  amplify:
-    version: 3

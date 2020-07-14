@@ -25,7 +25,7 @@ const AdminStackScreen = ({ navigation }) => {
     return (
         <AdminStack.Navigator>
             <AdminStack.Screen name="Admin Login   " component={AdminLoginScreen} options={{
-                headerTitle: "ADMIN LOGIN",
+                headerTitle: "EVENT PLANNER LOGIN",
                 headerStyle: {
                     backgroundColor: "#348feb",
                 },

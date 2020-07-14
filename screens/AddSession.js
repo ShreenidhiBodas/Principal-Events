@@ -182,6 +182,7 @@ class AddSession extends Component {
                                 API.graphql(graphqlOperation(createNewSession, { input: session }))
                                 .then(result => {
                                     console.log(`Session ${result.data.createNewSession.sessionId}  created`);
+                                    alert('Sessions Saved!');
                                 })
                                 .catch(err => console.log(err));
                             });

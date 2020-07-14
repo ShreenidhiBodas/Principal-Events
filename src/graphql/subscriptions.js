@@ -12,13 +12,17 @@ export const subscribeToEventSessions = /* GraphQL */ `
       type
       description
       speaker
+      attendees {
+        nextToken
+      }
+      url
     }
   }
 `;
 export const onCreateAttendee = /* GraphQL */ `
   subscription OnCreateAttendee($eventId: ID, $name: String) {
     onCreateAttendee(eventId: $eventId, name: $name) {
-      eventId
+      sessionId
       name
       email
       attendeeId
